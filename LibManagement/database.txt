@@ -1,0 +1,39 @@
+create database LibMnaagement;
+use LibManagement;
+create table book_details (
+	book_id INT NOT NULL AUTO INCREMENT,
+	book_name VARCHAR(255) NOT NULL,
+	book_author VARCHAR(255) NOT NULL,
+	book_price INT NOT NULL,
+	status VARCHAR(255),
+	edition VARCHAR(255),
+	date_of_purchase DATE,
+	number_of_copies INT,
+	PRIMARY KEY (book_id)
+	
+);
+
+create table users (
+	user_id INT NOT NULL AUTO INCREMENT,
+	user_name VARCHAR(255) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	address VARCHAR(255),
+	max_book_limit INT ,
+	number_of_issuedBooks INT NOT NULL,
+	email_id VARCHAR(255),
+	phone_number VARCHAR(255),
+	PRIMARY KEY (user_id)
+);
+
+create table transactions (
+	transaction_id INT NOT NULL AUTO_INCREMENT,
+	user_id INT NOT NULL,
+	book_id INT NOT NULL,
+	date_of_issue DATE NOT NULL,
+	due_date DATE NOT NULL,
+	transaction_status VARCHAR(255) NOT NULL,
+	fine INT ,
+	PRIMARY KEY (transaction_id),
+	CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(user_id),
+	CONSTRAINT fk_book FOREIGN KEY (book_id) REFERENCES book_details(book_id)
+);
